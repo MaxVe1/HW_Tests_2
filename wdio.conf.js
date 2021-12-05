@@ -1,4 +1,8 @@
+const { removeSync, emptyDirSync } = require('fs-extra');
+
 exports.config = {
+    user: "max_Irk5La",
+    key: "xTQsBts7PxY6Fhmp7b7k",
     specs: [
         './specs/**/*.js'
     ],
@@ -10,7 +14,6 @@ exports.config = {
     capabilities: [{
         maxInstances: 5,
         browserName: 'chrome',
-        pageLoadStrategy: 'eager',
         acceptInsecureCerts: true
     }],
     // Level of logging verbosity: trace | debug | info | warn | error | silent
@@ -20,31 +23,52 @@ exports.config = {
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
-    services: ['chromedriver'],
+    services: [
+         'chromedriver'
+         //'browserstack' 
+    ],
+    //capabilities: [{
+        // browserName: 'Chrome',  // Signifies on what platform your test will run. You can define other capabilities here.
+        // name: 'single_test',
+        // build: 'first-webdriverio-browserstack-build'  // The name of test and name of build is being defined here
+        
+        //Firefox
+        // 'bstack:options' : {
+        //     "os" : "Windows",
+        //     "osVersion" : "11",
+        //     "local" : "false",
+        //     "seleniumVersion" : "3.10.0",
+        //     "userName" : "max_Irk5La",
+        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+        //     },
+        //     "browserName" : "Firefox",
+        //     "browserVersion" : "latest",
 
+
+        //MacOS Edge
+        // 'bstack:options' : {
+        //     "os" : "OS X",
+        //     "osVersion" : "Monterey",
+        //     "local" : "false",
+        //     "seleniumVersion" : "3.5.2",
+        //     "userName" : "max_Irk5La",
+        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+        //     },
+        //     "browserName" : "Edge",
+        //     "browserVersion" : "latest",
+
+        //IOS 
+    //     'bstack:options' : {
+    //         "osVersion" : "15",
+    //         "deviceName" : "iPhone XS",
+    //         "realMobile" : "true",
+    //         "local" : "false",
+    //         "userName" : "max_Irk5La",
+    //         "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+    //         },
+    //         "browserName" : "iPhone",
+    //   }],
     framework: 'mocha',
-    cucumberOpts: {
-        scenarioLevelReporter: true,
-        retry: process.env.RETRY || 0,
-        backtrace: true,
-        // requireModule: ['@babel/register'],
-        failAmbiguousDefinitions: true,
-        failFast: false,
-        ignoreUndefinedDefinitions: false,
-        name: [],
-        snippets: true,
-        source: true,
-        profile: [],
-        require: [
-            './features/step_definitions/**/*.js',
-        ],
-        snippetSyntax: undefined,
-        strict: true,
-        tagExpression: 'not @Pending',
-        tagsInTitle: false,
-        timeout: process.env.DBG === '1' ? 600000 : 180000,
-    },
-
     //
     // The number of times to retry the entire specfile when it fails as a whole
     // specFileRetries: 1,
@@ -58,7 +82,8 @@ exports.config = {
     // Test reporter for stdout.
     // The only one supported by default is 'dot'
     // see also: https://webdriver.io/docs/dot-reporter
-    reporters: ['spec', ['allure', { outputDir: 'allure-results' }]],
+    reporters: ['spec',['allure', {outputDir: 'allure-results'}]],
+
 
 
     // Options to be passed to Mocha.
@@ -80,8 +105,10 @@ exports.config = {
      * @param {Object} config wdio configuration object
      * @param {Array.<Object>} capabilities list of capabilities details
      */
-    // onPrepare: function (config, capabilities) {
-    // },
+    onPrepare: function (config, capabilities) {                
+        emptyDirSync('./tmp');
+        //removeSync('.screenshots/1/');
+    },
     /**
      * Gets executed before a worker process is spawned and can be used to initialise specific service
      * for that worker as well as modify runtime environments in an async fashion.
@@ -152,14 +179,16 @@ exports.config = {
      * @param {Boolean} result.passed    true if test has passed, otherwise false
      * @param {Object}  result.retries   informations to spec related retries, e.g. `{ attempts: 0, limit: 0 }`
      */
-    afterTest: async function (test, context, { error, result, duration, passed, retries }) {
-        if (!passed) {
+    afterTest: async function(test, context, { error, result, duration, passed, retries }) {
+        //console.log( { test });         
+        const dat = new Date()
+        const sDate = dat.toDateString().replace(/\s/g,'_').toLowerCase(); 
+        const h = dat.getHours();
+        const min = dat.getMinutes();    
+        if (error) {
             await browser.takeScreenshot();
+            await browser.saveScreenshot(`./screenshots/${sDate}_${h}-${min}_${test.title.replace(/\s/g,'_').toLowerCase()}.png`);
         }
-    },
-
-    afterScenario: async ()=>{
-        await browser.reloadSession();
     },
 
     /**
@@ -205,10 +234,14 @@ exports.config = {
     // onComplete: function(exitCode, config, capabilities, results) {
     // },
     /**
-     * Gets executed when a refresh happens.
-     * @param {String} oldSessionId session ID of the old session
-     * @param {String} newSessionId session ID of the new session
-     */
+    * Gets executed when a refresh happens.
+    * @param {String} oldSessionId session ID of the old session
+    * @param {String} newSessionId session ID of the new session
+    */
     //onReload: function(oldSessionId, newSessionId) {
     //}
+    
+
+
+
 }
