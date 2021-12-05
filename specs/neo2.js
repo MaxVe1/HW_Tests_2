@@ -49,7 +49,7 @@ describe('Check app', function () {
 
         console.log(agesArr);
         console.log(agesArr2);        
-        expect(agesArr.sort((a, b) => b - a)).toEqual(agesArr2);
+        expect(agesArr.sort().reverse()).toEqual(agesArr2);
         await browser.pause(3000);        
         
     });
