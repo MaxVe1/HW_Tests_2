@@ -24,10 +24,10 @@ exports.config = {
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
     services: [
-         'chromedriver'
+           'chromedriver'
          //'browserstack' 
     ],
-    //capabilities: [{
+     //capabilities: [{
         // browserName: 'Chrome',  // Signifies on what platform your test will run. You can define other capabilities here.
         // name: 'single_test',
         // build: 'first-webdriverio-browserstack-build'  // The name of test and name of build is being defined here
@@ -58,16 +58,16 @@ exports.config = {
         //     "browserVersion" : "latest",
 
         //IOS 
-    //     'bstack:options' : {
-    //         "osVersion" : "15",
-    //         "deviceName" : "iPhone XS",
-    //         "realMobile" : "true",
-    //         "local" : "false",
-    //         "userName" : "max_Irk5La",
-    //         "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
-    //         },
-    //         "browserName" : "iPhone",
-    //   }],
+        // 'bstack:options' : {
+        //     "osVersion" : "15",
+        //     "deviceName" : "iPhone XS",
+        //     "realMobile" : "true",
+        //     "local" : "false",
+        //     "userName" : "max_Irk5La",
+        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+        //     },
+        //     "browserName" : "iPhone",
+       //}],
     framework: 'mocha',
     //
     // The number of times to retry the entire specfile when it fails as a whole
@@ -106,7 +106,7 @@ exports.config = {
      * @param {Array.<Object>} capabilities list of capabilities details
      */
     onPrepare: function (config, capabilities) {                
-        emptyDirSync('./tmp');
+        emptyDirSync('./screenshots');
         //removeSync('.screenshots/1/');
     },
     /**
