@@ -48,9 +48,8 @@ describe('Check app', function () {
         const agesArr2 = await getArr(ages2);
 
         console.log(agesArr);
-        console.log(agesArr2); 
-
-        expect(agesArr.sort((a, b) => b - a)).toEqual(agesArr2); //Chrome, Edge, Iphone
+        console.log(agesArr2);        
+        expect(agesArr.sort().reverse()).toEqual(agesArr2); // Works only in Firefox
         await browser.pause(3000);        
         
     });
