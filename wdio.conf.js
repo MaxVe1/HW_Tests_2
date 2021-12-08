@@ -23,51 +23,46 @@ exports.config = {
     waitforTimeout: 10000,
     connectionRetryTimeout: 120000,
     connectionRetryCount: 3,
-    services: [
-           'chromedriver'
-         //'browserstack' 
-    ],
-     //capabilities: [{
-        // browserName: 'Chrome',  // Signifies on what platform your test will run. You can define other capabilities here.
-        // name: 'single_test',
-        // build: 'first-webdriverio-browserstack-build'  // The name of test and name of build is being defined here
-        
+    services: [["browserstack", {}], ["chromedriver"]],
+    capabilities: [                
         //Firefox
-        // 'bstack:options' : {
-        //     "os" : "Windows",
-        //     "osVersion" : "11",
-        //     "local" : "false",
-        //     "seleniumVersion" : "3.10.0",
-        //     "userName" : "max_Irk5La",
-        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
-        //     },
-        //     "browserName" : "Firefox",
-        //     "browserVersion" : "latest",
-
-
+        {
+                'bstack:options' : {
+                "os" : "Windows",
+                "osVersion" : "11",
+                "local" : "false",
+                "seleniumVersion" : "3.10.0",
+                "userName" : "max_Irk5La",
+                "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+                },
+                "browserName" : "Firefox",
+                "browserVersion" : "latest",          
+        },
         //MacOS Edge
-        // 'bstack:options' : {
-        //     "os" : "OS X",
-        //     "osVersion" : "Monterey",
-        //     "local" : "false",
-        //     "seleniumVersion" : "3.5.2",
-        //     "userName" : "max_Irk5La",
-        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
-        //     },
-        //     "browserName" : "Edge",
-        //     "browserVersion" : "latest",
-
-        //IOS 
-        // 'bstack:options' : {
-        //     "osVersion" : "15",
-        //     "deviceName" : "iPhone XS",
-        //     "realMobile" : "true",
-        //     "local" : "false",
-        //     "userName" : "max_Irk5La",
-        //     "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
-        //     },
-        //     "browserName" : "iPhone",
-       //}],
+        {                
+                'bstack:options' : {
+                "os" : "OS X",
+                "osVersion" : "Monterey",
+                "local" : "false",
+                "seleniumVersion" : "3.5.2",
+                "userName" : "max_Irk5La",
+                "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+                },
+                "browserName" : "Edge",
+                "browserVersion" : "latest",
+        },
+        //IOS
+        {                  
+                'bstack:options' : {
+                 "osVersion" : "15",
+                 "deviceName" : "iPhone XS",
+                "realMobile" : "true",
+                "local" : "false",
+                "userName" : "max_Irk5La",
+                "accessKey" : "xTQsBts7PxY6Fhmp7b7k",
+                },
+                "browserName" : "iPhone",
+        }],
     framework: 'mocha',
     //
     // The number of times to retry the entire specfile when it fails as a whole
